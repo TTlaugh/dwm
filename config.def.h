@@ -6,7 +6,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 10;        /* gaps between windows */
+static const unsigned int gappx     = 10;       /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -76,7 +76,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return,       spawn,             {.v = browsercmd } },
 	{ MODKEY|ControlMask,           XK_Escape,       spawn,             {.v = dmpowercmd } },
 
-	{ MODKEY,                       XK_Escape,       spawn,             {.v = (const char*[]){ "cooli3lock", NULL } } },
+	{ MODKEY,                       XK_Escape,       spawn,             {.v = (const char*[]){ "slock", NULL } } },
 
 	{ MODKEY,                       XK_minus,        spawn,	            SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ MODKEY,                       XK_equal,        spawn,             SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
@@ -158,7 +158,7 @@ static const Key keys[] = {
 	{ 0, XF86XK_Sleep,              spawn,           {.v = (const char*[]){ "systemctl", "suspend", NULL } } },
 	{ 0, XF86XK_WWW,                spawn,           {.v = (const char*[]){ BROWSER, NULL } } },
 	{ 0, XF86XK_DOS,                spawn,           {.v = termcmd } },
-	{ 0, XF86XK_ScreenSaver,        spawn,           SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") },
+	{ 0, XF86XK_ScreenSaver,        spawn,           SHCMD("slock & xset dpms force off") },
 	{ 0, XF86XK_TaskPane,           spawn,           {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	// { 0, XF86XK_Mail,               spawn,           SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
 	{ 0, XF86XK_MyComputer,         spawn,           {.v = (const char*[]){ TERMINAL, "-e",  "vifm",  "/", NULL } } },
