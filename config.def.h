@@ -79,7 +79,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Escape,       spawn,             {.v = (const char*[]){ "slock", NULL } } },
 
 	{ MODKEY,                       XK_minus,        spawn,	            SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -s 34 $(cat ~/.cache/pidofbar)") },
-	{ MODKEY,                       XK_equal,        spawn,             SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
+	{ MODKEY,                       XK_equal,        spawn,             SHCMD("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ MODKEY|ShiftMask,             XK_m,            spawn,             SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -s 34 $(cat ~/.cache/pidofbar)") },
 
 	{ MODKEY,                       XK_BackSpace,    spawn,             SHCMD("dunstctl close") },
@@ -142,7 +142,7 @@ static const Key keys[] = {
 	// TAGKEYS(                        XK_9,            8)
 
 	{ 0, XF86XK_AudioMute,          spawn,           SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -s 34 $(cat ~/.cache/pidofbar)") },
-	{ 0, XF86XK_AudioRaiseVolume,   spawn,           SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%- && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
+	{ 0, XF86XK_AudioRaiseVolume,   spawn,           SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%- && wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ 0, XF86XK_AudioLowerVolume,   spawn,           SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%+ && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	// { 0, XF86XK_AudioPrev,          spawn,           {.v = (const char*[]){ "mpc", "prev", NULL } } },
 	// { 0, XF86XK_AudioNext,          spawn,           {.v = (const char*[]){ "mpc",  "next", NULL } } },
@@ -153,7 +153,7 @@ static const Key keys[] = {
 	// { 0, XF86XK_AudioForward,       spawn,           {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } },
 	// { 0, XF86XK_AudioMedia,         spawn,           {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
 	{ 0, XF86XK_AudioMicMute,       spawn,           SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
-	{ 0, XF86XK_PowerOff,           spawn,           {.v = dmpowercmd } },
+	// { 0, XF86XK_PowerOff,           spawn,           {.v = dmpowercmd } },
 	{ 0, XF86XK_Calculator,         spawn,           {.v = (const char*[]){ TERMINAL, "-e", "bc", "-l", NULL } } },
 	{ 0, XF86XK_Sleep,              spawn,           {.v = (const char*[]){ "systemctl", "suspend", NULL } } },
 	{ 0, XF86XK_WWW,                spawn,           {.v = (const char*[]){ BROWSER, NULL } } },
