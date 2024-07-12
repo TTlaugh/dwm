@@ -70,6 +70,17 @@ static const char *dmpowercmd[]  = { "dmpower", NULL };
 #include "movestack.c"
 
 static const Key keys[] = {
+	/*                              key              tag */
+	TAGKEYS(                        XK_a,            0)
+	TAGKEYS(                        XK_s,            1)
+	TAGKEYS(                        XK_d,            2)
+	TAGKEYS(                        XK_f,            3)
+	TAGKEYS(                        XK_1,            4)
+	TAGKEYS(                        XK_2,            5)
+	TAGKEYS(                        XK_3,            6)
+	TAGKEYS(                        XK_4,            7)
+	// TAGKEYS(                        XK_9,            8)
+
 	/* modifier                     key              function           argument */
 	{ MODKEY,                       XK_Return,       spawn,             {.v = termcmd } },
 	{ MODKEY,                       XK_o,            spawn,             {.v = dmenuruncmd } },
@@ -80,7 +91,7 @@ static const Key keys[] = {
 
 	{ MODKEY,                       XK_minus,        spawn,	            SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ MODKEY,                       XK_equal,        spawn,             SHCMD("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
-	{ MODKEY|ShiftMask,             XK_m,            spawn,             SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -s 34 $(cat ~/.cache/pidofbar)") },
+	{ MODKEY,                       XK_0,            spawn,             SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -s 34 $(cat ~/.cache/pidofbar)") },
 
 	{ MODKEY,                       XK_BackSpace,    spawn,             SHCMD("dunstctl close") },
 	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,             SHCMD("dunstctl close-all") },
@@ -88,6 +99,10 @@ static const Key keys[] = {
 
 	{ MODKEY|ShiftMask,             XK_w,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
 	{ MODKEY|ShiftMask,             XK_p,            spawn,             SHCMD(TERMINAL " -e pulsemixer; kill -s 34 $(cat ~/.cache/pidofbar)") },
+	{ MODKEY|ShiftMask,             XK_r,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
+	{ MODKEY|ShiftMask,             XK_o,            spawn,             SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	{ MODKEY,                       XK_Delete,       spawn,             {.v = (const char*[]){ "dmkill", NULL } } },
+	{ MODKEY,                       XK_Home,         spawn,             {.v = (const char*[]){ "displayselect", NULL } } },
 
 	{ 0,                            XK_Print,        spawn,             {.v = (const char*[]){ "screenshot", NULL } } },
 	{ ShiftMask,                    XK_Print,        spawn,             {.v = (const char*[]){ "screenshot", "selected", NULL } } },
@@ -120,26 +135,13 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_f,            togglefullscr,     {0} },
 	{ MODKEY,                       XK_v,            togglesticky,      {0} },
 
-	{ MODKEY,                       XK_z,            scratchpad_show,   {0} },
-	{ MODKEY|ShiftMask,             XK_x,            scratchpad_hide,   {0} },
-	{ MODKEY,                       XK_c,            scratchpad_remove, {0} },
+	{ MODKEY|ShiftMask,             XK_c,            scratchpad_show,   {0} },
+	{ MODKEY,                       XK_c,            scratchpad_hide,   {0} },
+	{ MODKEY|ControlMask,           XK_c,            scratchpad_remove, {0} },
 
-	// { MODKEY,                       XK_u,            view,              {0} },
-	{ MODKEY,                       XK_0,            view,              {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,            tag,               {.ui = ~0 } },
-
-	{ MODKEY,                       XK_Tab,          view_adjacent,     { .i = +1 } },
-	{ MODKEY|ShiftMask,             XK_Tab,          view_adjacent,     { .i = -1 } },
-
-	TAGKEYS(                        XK_a,            0)
-	TAGKEYS(                        XK_s,            1)
-	TAGKEYS(                        XK_d,            2)
-	TAGKEYS(                        XK_f,            3)
-	TAGKEYS(                        XK_1,            4)
-	TAGKEYS(                        XK_2,            5)
-	TAGKEYS(                        XK_3,            6)
-	TAGKEYS(                        XK_4,            7)
-	// TAGKEYS(                        XK_9,            8)
+	{ MODKEY,                       XK_Tab,          view,              {0} },
+	{ MODKEY,                       XK_apostrophe,   view,              {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_apostrophe,   tag,               {.ui = ~0 } },
 
 	{ 0, XF86XK_AudioMute,          spawn,           SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ 0, XF86XK_AudioRaiseVolume,   spawn,           SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%- && wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
