@@ -63,6 +63,7 @@ static const Layout layouts[] = {
 static const char *termcmd[]  = { TERMINAL, NULL };
 static const char *browsercmd[]  = { BROWSER, NULL };
 static const char *dmenuruncmd[]  = { "dmenu_run", "-l", "10", "-x", "0", "-y", "0", "-z", "308", NULL };
+static const char *killdmenu[]  = { "pkill", "dmenu", NULL };
 static const char *dmpowercmd[]  = { "dmpower", NULL };
 
 #include <X11/XF86keysym.h>
@@ -202,6 +203,7 @@ static const Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = dmpowercmd } },
 	// { ClkStatusText,        0,              Button3,        spawn,          {.v = statusdashboard } },
 
+	{ ClkRootWin,           0,              Button1,        spawn,          {.v = killdmenu } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
 	{ ClkRootWin,           0,              Button3,        spawn,          {.v = dmenuruncmd } },
 	{ ClkRootWin,           MODKEY,         Button3,        spawn,          {.v = termcmd } },
