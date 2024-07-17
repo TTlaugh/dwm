@@ -66,7 +66,7 @@ static const char *dmenuruncmd[]  = { "dmenu_run", "-l", "10", "-x", "0", "-y", 
 static const char *dmpowercmd[]  = { "dmpower", NULL };
 
 #include <X11/XF86keysym.h>
-#include "nextprevtag.c"
+#include "shiftview.c"
 #include "movestack.c"
 
 static const Key keys[] = {
@@ -103,7 +103,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_o,            spawn,             SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
 	{ MODKEY,                       XK_Delete,       spawn,             {.v = (const char*[]){ "dmkill", NULL } } },
 	{ MODKEY,                       XK_Home,         spawn,             {.v = (const char*[]){ "displayselect", NULL } } },
-	{ MODKEY,                       XK_p,            spawn,             {.v = (const char*[]){ "passmenu", NULL } } },
+	{ MODKEY,                       XK_m,            spawn,             {.v = (const char*[]){ "passmenu", NULL } } },
 
 	{ 0,                            XK_Print,        spawn,             {.v = (const char*[]){ "screenshot", NULL } } },
 	{ ShiftMask,                    XK_Print,        spawn,             {.v = (const char*[]){ "screenshot", "selected", NULL } } },
@@ -117,6 +117,8 @@ static const Key keys[] = {
 
 	{ MODKEY|ControlMask,           XK_q,            quit,              {0} },
 
+	{ MODKEY,                       XK_p,            shiftview,         {.i = -1 } },
+	{ MODKEY,                       XK_n,            shiftview,         {.i = +1 } },
 	{ MODKEY,                       XK_j,            focusstack,        {.i = +1 } },
 	{ MODKEY,                       XK_k,            focusstack,        {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,            movestack,         {.i = +1 } },
@@ -190,8 +192,8 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-	{ ClkTagBar,            0,              Button4,        view_adjacent,  { .i = -1 } },
-	{ ClkTagBar,            0,              Button5,        view_adjacent,  { .i = +1 } },
+	{ ClkTagBar,            0,              Button4,        shiftview,      { .i = -1 } },
+	{ ClkTagBar,            0,              Button5,        shiftview,      { .i = +1 } },
 
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkWinTitle,          MODKEY,         Button1,        incnmaster,     {.i = +1 } },
