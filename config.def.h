@@ -60,12 +60,8 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[]  = { TERMINAL, NULL };
-static const char *browsercmd[]  = { BROWSER, NULL };
-static const char *dmenuruncmd[]  = { "dmenu_run", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "cmd", NULL };
-static const char *dmenurundesktopcmd[]  = { "dmenu_run_desktop", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "app", NULL };
-static const char *killdmenu[]  = { "pkill", "dmenu", NULL };
-static const char *dmpowercmd[]  = { "dmpower", NULL };
+static const char *run_cmd[]  = { "dmenu_run"        , "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "cmd", NULL };
+static const char *run_app[]  = { "dmenu_run_desktop", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "app", NULL };
 
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
@@ -84,11 +80,11 @@ static const Key keys[] = {
 	// TAGKEYS(                        XK_9,            8)
 
 	/* modifier                     key              function           argument */
-	{ MODKEY,                       XK_Return,       spawn,             {.v = termcmd } },
-	{ MODKEY,                       XK_o,            spawn,             {.v = dmenuruncmd } },
-	{ MODKEY|ShiftMask,             XK_o,            spawn,             {.v = dmenurundesktopcmd } },
-	{ MODKEY|ShiftMask,             XK_Return,       spawn,             {.v = browsercmd } },
-	{ MODKEY|ControlMask,           XK_Escape,       spawn,             {.v = dmpowercmd } },
+	{ MODKEY,                       XK_Return,       spawn,             {.v = (const char*[]){ TERMINAL, NULL } } },
+	{ MODKEY,                       XK_o,            spawn,             {.v = run_cmd } },
+	{ MODKEY|ShiftMask,             XK_o,            spawn,             {.v = run_app } },
+	{ MODKEY|ShiftMask,             XK_Return,       spawn,             {.v = (const char*[]){ BROWSER, NULL } } },
+	{ MODKEY|ControlMask,           XK_Escape,       spawn,             {.v = (const char*[]){ "dmsysact", NULL } } },
 
 	{ MODKEY,                       XK_Escape,       spawn,             {.v = (const char*[]){ "slock", NULL } } },
 
@@ -103,6 +99,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_w,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
 	{ MODKEY|ShiftMask,             XK_r,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ MODKEY|ShiftMask,             XK_t,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "trans", "-shell", "-brief", ":vi", NULL } } },
+	{ MODKEY,                       XK_t,            spawn,             {.v = (const char*[]){ "dmtodo", NULL } } },
 	{ MODKEY|ShiftMask,             XK_m,            spawn,             SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
 	{ MODKEY|ShiftMask,             XK_p,            spawn,             SHCMD(TERMINAL " -e pulsemixer; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ MODKEY,                       XK_p,            spawn,             {.v = (const char*[]){ "passmenu", NULL } } },
@@ -162,11 +159,11 @@ static const Key keys[] = {
 	// { 0, XF86XK_AudioForward,       spawn,           {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } },
 	// { 0, XF86XK_AudioMedia,         spawn,           {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
 	{ 0, XF86XK_AudioMicMute,       spawn,           SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
-	// { 0, XF86XK_PowerOff,           spawn,           {.v = dmpowercmd } },
+	// { 0, XF86XK_sysactOff,           spawn,          {.v = (const char*[]){ "dmsysact", NULL } } },
 	{ 0, XF86XK_Calculator,         spawn,           {.v = (const char*[]){ TERMINAL, "-e", "bc", "-l", NULL } } },
 	{ 0, XF86XK_Sleep,              spawn,           {.v = (const char*[]){ "systemctl", "suspend", NULL } } },
 	{ 0, XF86XK_WWW,                spawn,           {.v = (const char*[]){ BROWSER, NULL } } },
-	{ 0, XF86XK_DOS,                spawn,           {.v = termcmd } },
+	{ 0, XF86XK_DOS,                spawn,           {.v = (const char*[]){ TERMINAL, NULL } } },
 	{ 0, XF86XK_ScreenSaver,        spawn,           SHCMD("slock & xset dpms force off") },
 	{ 0, XF86XK_TaskPane,           spawn,           {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	// { 0, XF86XK_Mail,               spawn,           SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
@@ -203,12 +200,11 @@ static const Button buttons[] = {
 	{ ClkWinTitle,          MODKEY,         Button1,        incnmaster,     {.i = +1 } },
 	{ ClkWinTitle,          MODKEY,         Button3,        incnmaster,     {.i = -1 } },
 
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = dmpowercmd } },
-	// { ClkStatusText,        0,              Button3,        spawn,          {.v = statusdashboard } },
+	{ ClkStatusText,        0,              Button2,        spawn,          {.v = (const char*[]){ "dmsysact", NULL } } },
 
-	{ ClkRootWin,           0,              Button1,        spawn,          {.v = killdmenu } },
+	{ ClkRootWin,           0,              Button1,        spawn,          {.v = (const char*[]){ "pkill", "dmenu", NULL } } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
-	{ ClkRootWin,           0,              Button3,        spawn,          {.v = dmenuruncmd } },
-	{ ClkRootWin,           MODKEY,         Button3,        spawn,          {.v = termcmd } },
+	{ ClkRootWin,           0,              Button3,        spawn,          {.v = run_cmd } },
+	{ ClkRootWin,           MODKEY,         Button3,        spawn,          {.v = (const char*[]){ TERMINAL, NULL } } },
 };
 
