@@ -136,7 +136,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_bracketleft,  incnmaster,        {.i = -1 } },
 	{ MODKEY,                       XK_space,        zoom,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,        togglefloating,    {0} },
-	{ 0,                            XK_F11,          togglefullscr,     {0} },
+	{ MODKEY,                       XK_F11,          togglefullscr,     {0} },
 	{ MODKEY,                       XK_v,            togglesticky,      {0} },
 
 	{ MODKEY|ShiftMask,             XK_c,            scratchpad_show,   {0} },
