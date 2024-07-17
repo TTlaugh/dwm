@@ -62,7 +62,8 @@ static const Layout layouts[] = {
 /* commands */
 static const char *termcmd[]  = { TERMINAL, NULL };
 static const char *browsercmd[]  = { BROWSER, NULL };
-static const char *dmenuruncmd[]  = { "dmenu_run", "-l", "10", "-x", "0", "-y", "0", "-z", "308", NULL };
+static const char *dmenuruncmd[]  = { "dmenu_run", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "cmd", NULL };
+static const char *dmenurundesktopcmd[]  = { "dmenu_run_desktop", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "app", NULL };
 static const char *killdmenu[]  = { "pkill", "dmenu", NULL };
 static const char *dmpowercmd[]  = { "dmpower", NULL };
 
@@ -85,6 +86,7 @@ static const Key keys[] = {
 	/* modifier                     key              function           argument */
 	{ MODKEY,                       XK_Return,       spawn,             {.v = termcmd } },
 	{ MODKEY,                       XK_o,            spawn,             {.v = dmenuruncmd } },
+	{ MODKEY|ShiftMask,             XK_o,            spawn,             {.v = dmenurundesktopcmd } },
 	{ MODKEY|ShiftMask,             XK_Return,       spawn,             {.v = browsercmd } },
 	{ MODKEY|ControlMask,           XK_Escape,       spawn,             {.v = dmpowercmd } },
 
@@ -94,17 +96,18 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_equal,        spawn,             SHCMD("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ MODKEY,                       XK_0,            spawn,             SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -s 34 $(cat ~/.cache/pidofbar)") },
 
-	{ MODKEY,                       XK_BackSpace,    spawn,             SHCMD("dunstctl close") },
-	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,             SHCMD("dunstctl close-all") },
-	{ MODKEY,                       XK_backslash,    spawn,             SHCMD("dunstctl history-pop") },
+	{ MODKEY,                       XK_BackSpace,    spawn,             {.v = (const char*[]){ "dunstctl", "close", NULL } } },
+	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,             {.v = (const char*[]){ "dunstctl", "close-all", NULL } } },
+	{ MODKEY,                       XK_backslash,    spawn,             {.v = (const char*[]){ "dunstctl", "history-pop", NULL } } },
 
 	{ MODKEY|ShiftMask,             XK_w,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
-	{ MODKEY|ShiftMask,             XK_p,            spawn,             SHCMD(TERMINAL " -e pulsemixer; kill -s 34 $(cat ~/.cache/pidofbar)") },
 	{ MODKEY|ShiftMask,             XK_r,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
-	{ MODKEY|ShiftMask,             XK_o,            spawn,             SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	{ MODKEY|ShiftMask,             XK_t,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "trans", "-shell", "-brief", ":vi", NULL } } },
+	{ MODKEY|ShiftMask,             XK_m,            spawn,             SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	{ MODKEY|ShiftMask,             XK_p,            spawn,             SHCMD(TERMINAL " -e pulsemixer; kill -s 34 $(cat ~/.cache/pidofbar)") },
+	{ MODKEY,                       XK_p,            spawn,             {.v = (const char*[]){ "passmenu", NULL } } },
 	{ MODKEY,                       XK_Delete,       spawn,             {.v = (const char*[]){ "dmkill", NULL } } },
 	{ MODKEY,                       XK_Home,         spawn,             {.v = (const char*[]){ "displayselect", NULL } } },
-	{ MODKEY,                       XK_m,            spawn,             {.v = (const char*[]){ "passmenu", NULL } } },
 
 	{ 0,                            XK_Print,        spawn,             {.v = (const char*[]){ "screenshot", NULL } } },
 	{ ShiftMask,                    XK_Print,        spawn,             {.v = (const char*[]){ "screenshot", "selected", NULL } } },
@@ -118,8 +121,8 @@ static const Key keys[] = {
 
 	{ MODKEY|ControlMask,           XK_q,            quit,              {0} },
 
-	{ MODKEY,                       XK_p,            shiftview,         {.i = -1 } },
-	{ MODKEY,                       XK_n,            shiftview,         {.i = +1 } },
+	{ MODKEY,                       XK_g,            shiftview,         {.i = -1 } },
+	{ MODKEY,                       XK_semicolon,    shiftview,         {.i = +1 } },
 	{ MODKEY,                       XK_j,            focusstack,        {.i = +1 } },
 	{ MODKEY,                       XK_k,            focusstack,        {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,            movestack,         {.i = +1 } },
