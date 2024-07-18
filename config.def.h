@@ -32,6 +32,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Signal",   NULL,       NULL,       1 << 4,       1,           -1 },
+	{ "Alacritty","floatterm",NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -99,6 +100,7 @@ static const Key keys[] = {
 
 	{ MODKEY|ShiftMask,             XK_n,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
 	{ MODKEY,                       XK_F12,          spawn,             {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
+	{ MODKEY|ShiftMask,             XK_b,            spawn,             {.v = (const char*[]){ TERMINAL, "--class", "Alacritty,floatterm", "-e", "bc", "-lq", NULL } } },
 	{ MODKEY|ShiftMask,             XK_t,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "trans", "-shell", "-brief", ":vi", NULL } } },
 	{ MODKEY,                       XK_t,            spawn,             {.v = (const char*[]){ "dmtodo", NULL } } },
 	{ MODKEY|ShiftMask,             XK_m,            spawn,             SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
