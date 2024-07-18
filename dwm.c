@@ -1349,18 +1349,13 @@ resizeclient(Client *c, int x, int y, int w, int h, int bw)
 	/* Get number of clients for the client's monitor */
 	for (n = 0, nbc = nexttiled(c->mon->clients); nbc; nbc = nexttiled(nbc->next), n++);
 
-	/* Do nothing if layout is floating */
-	if (c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL) {
+	/* Do nothing if layout is floating, monocle or only one client */
+	if (c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL ||
+		c->mon->lt[c->mon->sellt]->arrange == monocle || n == 1) {
 		gapincr = gapoffset = 0;
 	} else {
-		/* Remove gap if layout is monocle or only one client */
-		if (c->mon->lt[c->mon->sellt]->arrange == monocle || n == 1) {
-			gapoffset = 0;
-			gapincr = 0;
-		} else {
-			gapoffset = gappx;
-			gapincr = 2 * gappx;
-		}
+		gapoffset = gappx;
+		gapincr = 2 * gappx;
 	}
 
 	c->oldx = c->x; c->x = wc.x = x + gapoffset;

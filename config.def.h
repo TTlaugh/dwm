@@ -23,7 +23,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "a", "s", "d", "f", "1", "2", "3", "4" };
+static const char *tags[] = { "a", "s", "d", "f", "q", "w", "e", "r" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -73,10 +73,10 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_s,            1)
 	TAGKEYS(                        XK_d,            2)
 	TAGKEYS(                        XK_f,            3)
-	TAGKEYS(                        XK_1,            4)
-	TAGKEYS(                        XK_2,            5)
-	TAGKEYS(                        XK_3,            6)
-	TAGKEYS(                        XK_4,            7)
+	TAGKEYS(                        XK_q,            4)
+	TAGKEYS(                        XK_w,            5)
+	TAGKEYS(                        XK_e,            6)
+	TAGKEYS(                        XK_r,            7)
 	// TAGKEYS(                        XK_9,            8)
 
 	/* modifier                     key              function           argument */
@@ -110,13 +110,13 @@ static const Key keys[] = {
 	{ ShiftMask,                    XK_Print,        spawn,             {.v = (const char*[]){ "screenshot", "selected", NULL } } },
 
 	{ MODKEY,                       XK_b,            togglebar,         {0} },
-	{ MODKEY,                       XK_q,            setlayout,         {.v = &layouts[0]} },
-	{ MODKEY,                       XK_w,            setlayout,         {.v = &layouts[1]} },
-	{ MODKEY,                       XK_e,            setlayout,         {.v = &layouts[2]} },
+	{ MODKEY,                       XK_1,            setlayout,         {.v = &layouts[0]} },
+	{ MODKEY,                       XK_2,            setlayout,         {.v = &layouts[1]} },
+	{ MODKEY,                       XK_3,            setlayout,         {.v = &layouts[2]} },
 
-	{ MODKEY|ShiftMask,             XK_q,            killclient,        {0} },
+	{ MODKEY|ShiftMask,             XK_c,            killclient,        {0} },
 
-	{ MODKEY|ControlMask,           XK_q,            quit,              {0} },
+	{ MODKEY|ControlMask,           XK_c,            quit,              {0} },
 
 	{ MODKEY,                       XK_g,            shiftview,         {.i = -1 } },
 	{ MODKEY,                       XK_semicolon,    shiftview,         {.i = +1 } },
@@ -139,9 +139,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_F11,          togglefullscr,     {0} },
 	{ MODKEY,                       XK_v,            togglesticky,      {0} },
 
-	{ MODKEY|ShiftMask,             XK_c,            scratchpad_show,   {0} },
-	{ MODKEY,                       XK_c,            scratchpad_hide,   {0} },
-	{ MODKEY|ControlMask,           XK_c,            scratchpad_remove, {0} },
+	{ MODKEY|ShiftMask,             XK_x,            scratchpad_show,   {0} },
+	{ MODKEY,                       XK_x,            scratchpad_hide,   {0} },
+	{ MODKEY|ControlMask,           XK_x,            scratchpad_remove, {0} },
 
 	{ MODKEY,                       XK_Tab,          view,              {0} },
 	{ MODKEY,                       XK_apostrophe,   view,              {.ui = ~0 } },
