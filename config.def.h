@@ -41,9 +41,15 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+#include <X11/XF86keysym.h>
+#include "shiftview.c"
+#include "movestack.c"
+#include "bstack.c"
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
+	{ "TTT",      bstack },
 	{ "[M]",      monocle },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
@@ -62,10 +68,6 @@ static const Layout layouts[] = {
 /* commands */
 static const char *run_cmd[]  = { "dmenu_run"        , "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "cmd", NULL };
 static const char *run_app[]  = { "dmenu_run_desktop", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "app", NULL };
-
-#include <X11/XF86keysym.h>
-#include "shiftview.c"
-#include "movestack.c"
 
 static const Key keys[] = {
 	/*                              key              tag */
@@ -113,6 +115,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_1,            setlayout,         {.v = &layouts[0]} },
 	{ MODKEY,                       XK_2,            setlayout,         {.v = &layouts[1]} },
 	{ MODKEY,                       XK_3,            setlayout,         {.v = &layouts[2]} },
+	{ MODKEY,                       XK_4,            setlayout,         {.v = &layouts[3]} },
 
 	{ MODKEY|ShiftMask,             XK_c,            killclient,        {0} },
 
