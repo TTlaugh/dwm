@@ -31,8 +31,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Signal",   NULL,       NULL,       1 << 4,       1,           -1 },
 };
 
 /* layout(s) */
@@ -98,8 +97,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,             {.v = (const char*[]){ "dunstctl", "close-all", NULL } } },
 	{ MODKEY,                       XK_backslash,    spawn,             {.v = (const char*[]){ "dunstctl", "history-pop", NULL } } },
 
-	{ MODKEY|ShiftMask,             XK_w,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
-	{ MODKEY|ShiftMask,             XK_r,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
+	{ MODKEY|ShiftMask,             XK_n,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
+	{ MODKEY,                       XK_F12,          spawn,             {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ MODKEY|ShiftMask,             XK_t,            spawn,             {.v = (const char*[]){ TERMINAL, "-e", "trans", "-shell", "-brief", ":vi", NULL } } },
 	{ MODKEY,                       XK_t,            spawn,             {.v = (const char*[]){ "dmtodo", NULL } } },
 	{ MODKEY|ShiftMask,             XK_m,            spawn,             SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
@@ -185,7 +184,7 @@ static const Key keys[] = {
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {.v = &layouts[0]} },
-	{ ClkLtSymbol,          0,              Button2,        setlayout,      {.v = &layouts[1]} },
+	{ ClkLtSymbol,          0,              Button2,        setlayout,      {.v = &layouts[3]} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
