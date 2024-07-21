@@ -66,8 +66,9 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *run_cmd[]  = { "dmenu_run"        , "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "cmd", NULL };
-static const char *run_app[]  = { "dmenu_run_desktop", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "app", NULL };
+static const char *run_cmd[] = { "dmenu_run"        , "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "cmd", NULL };
+static const char *run_app[] = { "dmenu_run_desktop", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "app", NULL };
+static const char *quitdwm[] = { "pkill", "dwm", NULL };
 
 static const Key keys[] = {
 	/*                              key              tag */
@@ -120,7 +121,9 @@ static const Key keys[] = {
 
 	{ MODKEY|ShiftMask,             XK_c,            killclient,        {0} },
 
-	{ MODKEY|ControlMask,           XK_c,            quit,              {0} },
+	/* Mod+Ctrl+ r(eload) / q(uit) */
+	{ MODKEY|ControlMask,           XK_r,            quit,              {0} },
+	{ MODKEY|ControlMask,           XK_c,            spawn,             {.v = quitdwm } },
 
 	{ MODKEY,                       XK_g,            shiftview,         {.i = -1 } },
 	{ MODKEY,                       XK_semicolon,    shiftview,         {.i = +1 } },
@@ -200,11 +203,11 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button4,        shiftview,      { .i = -1 } },
 	{ ClkTagBar,            0,              Button5,        shiftview,      { .i = +1 } },
 
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkWinTitle,          MODKEY,         Button1,        incnmaster,     {.i = +1 } },
-	{ ClkWinTitle,          MODKEY,         Button3,        incnmaster,     {.i = -1 } },
+	{ ClkWinTitle,          0,              Button1,        zoom,           {0} },
+	{ ClkWinTitle,          0,              Button2,        killclient,     {.i = +1 } },
+	{ ClkWinTitle,          0,              Button3,        togglesticky,   {.i = -1 } },
 
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = (const char*[]){ "dmsysact", NULL } } },
+	{ ClkStatusText,        0,              Button3,        spawn,          {.v = (const char*[]){ "dmsysact", NULL } } },
 
 	{ ClkRootWin,           0,              Button1,        spawn,          {.v = (const char*[]){ "pkill", "dmenu", NULL } } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
