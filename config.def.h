@@ -208,6 +208,7 @@ static const Button buttons[] = {
 	{ ClkWinTitle,          0,              Button3,        togglesticky,   {.i = -1 } },
 
 	{ ClkStatusText,        0,              Button3,        spawn,          {.v = (const char*[]){ "dmsysact", NULL } } },
+	{ ClkStatusText,        0,              Button2,        togglebar,      {0} },
 
 	{ ClkRootWin,           0,              Button1,        spawn,          {.v = (const char*[]){ "pkill", "dmenu", NULL } } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
