@@ -211,7 +211,7 @@ static const Button buttons[] = {
 
 	{ ClkRootWin,           0,              Button1,        spawn,          {.v = (const char*[]){ "pkill", "dmenu", NULL } } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
-	{ ClkRootWin,           0,              Button3,        spawn,          {.v = run_cmd } },
+	{ ClkRootWin,           0,              Button3,        spawn,          {.v = run_app } },
 	{ ClkRootWin,           MODKEY,         Button3,        spawn,          {.v = (const char*[]){ TERMINAL, NULL } } },
 };
 
