@@ -67,8 +67,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *run_cmd[] = { "dmenu_run"        , "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "cmd", NULL };
-static const char *run_app[] = { "dmenu_run_desktop", "-l", "10", "-x", "0", "-y", "0", "-z", "308", "-p", "app", NULL };
+static const char *run_cmd[] = { "dmenu_run" , "-p", "Run:", NULL };
 static const char *quitdwm[] = { "pkill", "dwm", NULL };
 
 static const Key keys[] = {
@@ -86,7 +85,6 @@ static const Key keys[] = {
 	/* modifier                     key              function           argument */
 	{ MODKEY,                       XK_Return,       spawn,             {.v = (const char*[]){ TERMINAL, NULL } } },
 	{ MODKEY,                       XK_o,            spawn,             {.v = run_cmd } },
-	{ MODKEY|ShiftMask,             XK_o,            spawn,             {.v = run_app } },
 	{ MODKEY|ShiftMask,             XK_Return,       spawn,             {.v = (const char*[]){ BROWSER, NULL } } },
 	{ MODKEY|ControlMask,           XK_Escape,       spawn,             {.v = (const char*[]){ "dmsysact", NULL } } },
 
@@ -215,7 +213,7 @@ static const Button buttons[] = {
 
 	{ ClkRootWin,           0,              Button1,        spawn,          {.v = (const char*[]){ "pkill", "dmenu", NULL } } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
-	{ ClkRootWin,           0,              Button3,        spawn,          {.v = run_app } },
+	{ ClkRootWin,           0,              Button3,        spawn,          {.v = run_cmd } },
 	{ ClkRootWin,           MODKEY,         Button3,        spawn,          {.v = (const char*[]){ TERMINAL, NULL } } },
 };
 
